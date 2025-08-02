@@ -1,14 +1,13 @@
-# Use lightweight OpenJDK 17 base image
-FROM openjdk:17-jdk-slim
-
-# Set working directory
+# 1. Build stage
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
+COPY . .
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-# Copy the JAR to the container (adjust filename if needed)
-COPY target/player-service-0.0.1-SNAPSHOT.jar app.jar
+# 2. Runtime stage
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/target/player-service-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port Spring Boot runs on (default 8080 or 8081)
 EXPOSE 8081
-
-# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
