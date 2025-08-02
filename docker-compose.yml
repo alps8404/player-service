@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-player
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: player_service
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 8404
+    ports:
+      - "3307:3306"  # local_port:container_port
+    networks:
+      - player-net
+
+  player-service:
+    build: .
+    container_name: player-service
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:mysql://db:3306/player_service
+      DB_USERNAME: root
+      DB_PASSWORD: 8404
+    networks:
+      - player-net
+
+networks:
+  player-net:
