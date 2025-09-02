@@ -1,6 +1,7 @@
 package com.example.player_service.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,10 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 		List<Player> searchPlayers(@Param("location") String location,
 		                           @Param("position") String position,
 		                           @Param("professionalism") String professionalism);
+	
+	
+	//If the User already logged in previously....
+	 Optional<Player> findByMobile(String mobile);
 
 }
 

@@ -21,4 +21,14 @@ public class PlayerService {
     public   List<Player> search(String location, String position, String professionalism) {
         return playerRepo.searchPlayers(location, position, professionalism);
     }
-}
+    
+    public boolean validate(String mobile , String Otp) {
+   	 return playerRepo.findByMobile(mobile).isPresent() && Otp.equals("123456");
+    }
+    
+    public Player searchByMobile(String mobile) {
+    	return playerRepo.findByMobile(mobile).orElse(null);
+    }
+ }
+
+
