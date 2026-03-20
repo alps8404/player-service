@@ -12,7 +12,7 @@ import com.example.player_service.Service.PlayerService;
 
 @RestController
 @RequestMapping("/api/players")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class PlayerController {
 
     @Autowired
