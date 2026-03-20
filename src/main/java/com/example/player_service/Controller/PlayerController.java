@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.player_service.Entity.Player;
@@ -39,7 +40,7 @@ public class PlayerController {
 			System.out.println("Player exists for mobie:"+mobile);
 			return ResponseEntity.ok().body(player);
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player not found");
+		return ResponseEntity.status(HttpStatusCode.valueOf(404)).body("Player not found");
 	}
 	
 }
